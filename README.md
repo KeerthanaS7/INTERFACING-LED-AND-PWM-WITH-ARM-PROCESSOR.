@@ -54,19 +54,52 @@ Header:
 
 # PIN DIAGRAM :
 
+<img width="825" height="514" alt="image" src="https://github.com/user-attachments/assets/d01457c3-cea2-4be9-ac5e-d9c5d675fc02" />
 
 # CIRCUIT DIAGRAM:
  
- 
+ <img width="1026" height="477" alt="image" src="https://github.com/user-attachments/assets/69d684a6-5a28-44f0-89f0-da5e842018a2" />
+
 # PROGRAM:
-
-
+~~~
+#include <lpc17xx.h>
+#include "pwm.h"
+#include "delay.h"
+#define CYCLE_TIME 100
+/* start the main program */
+int main()
+{
+int dutyCycle;
+SystemInit(); /* Clock and PLL configuration */
+PWM_Init(CYCLE_TIME); /* Initialize the PWM module and the Cycle time(Ton+Toff) is
+set to 255(similar to arduino)*/
+PWM_Start(PWM_3); /* Enable PWM output on PWM_1-PWM_4 (P2_0 - P2_3) */
+while(1)
+{
+for(dutyCycle=0;dutyCycle<CYCLE_TIME;dutyCycle++) /* Increase the Brightness of the
+Leds */
+{
+PWM_SetDutyCycle(PWM_3,dutyCycle); //P2_2
+DELAY_ms(10);
+}
+17
+for(dutyCycle=CYCLE_TIME;dutyCycle>0;dutyCycle--) /* Decrease the Brightness of the
+Leds */
+{
+PWM_SetDutyCycle(PWM_3,dutyCycle); //P2_2
+DELAY_ms(10);
+}
+}
+}
+~~~
  
 # Output:
 
+<img width="1022" height="671" alt="image" src="https://github.com/user-attachments/assets/7d3cc956-fa6a-4a77-8dc1-5503ef4acef2" />
 
 
-
+## Result:
+Thus the embedded c program to interface LED and PWM with ARM processor LPC1768 is verified.
 
 
 
